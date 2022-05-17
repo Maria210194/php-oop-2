@@ -5,28 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Care</title>
-    </head>
+</head>
 <body>
 
 <?php
 
-include './entities/User.php';
+include_once __DIR__ .  '/entities/user.php';
+include_once __DIR__ .  '/entities/food_product.php';
+include_once __DIR__ .  '/entities/registered_user.php';
+include_once __DIR__ .  '/entities/cart.php';
 
-$user = new User ('Mary','Stachie','m.s@gmail.com');
+$cart= new Cart();
+$crocchette= new FoodProduct('Ns', 'croccgetta-mix', 45, 'dry', '22-09-2022');
 
-echo('<pre><div>'.
-'<p> Name: ' . $user->getUserName() . '</p>'.
-'<p> Surname: ' . $user->setUserSurame() . '</p>'.
-'<p> Email: ' . $user->userEmail() . '</p>'.
-'</div></pre>');
+$email = 'm.s@gmail.com';
+$password= '323223';
+$user = new RegisteredUser ($email, $password);
+
+if ($user->isValidUser()){
+    $cart->setRegisteredUser($user);
+}
 
 
-echo ('<pre>');
-var_dump($user);
-echo ('</pre>');
+$cart->addProduct($crocchette);
+echo('<br> prezzo: ' . $cart->checkOut());
+
 
 ?>
-
 
 
 </body>
